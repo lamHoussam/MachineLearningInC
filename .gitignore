@@ -1,0 +1,4 @@
+[bB]in/*
+[Oo]bj/*
+*.o
+.vscode/*
