@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "Models/Regression.h"
-#include "Maths/MLMaths.h"
+#include "../CMaths/MLMaths.h"
 
 
 int main(int argc, char const *argv[])

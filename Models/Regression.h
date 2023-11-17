@@ -4,7 +4,7 @@
 #ifndef REGRESSION_H
 #define REGRESSION_H
 
-#include "../Maths/Vec.h"
+#include "../../CMaths/Vec.h"
 
 typedef struct
 {
