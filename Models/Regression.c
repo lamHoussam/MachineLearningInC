@@ -38,7 +38,7 @@ int uniregression_load_data_from_file(
     res->m_data_size = data_size;
 
     uint8_t i = 0;
-    while (fscanf(fp, "%f:%f", &x, &y) != EOF) {
+    while (fscanf(fp, "%f:%f", &x, &y) != EOF && i < res->m_data_size) {
         data_x[i] = x;
         data_y[i++] = y;
     }
