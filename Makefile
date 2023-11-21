@@ -4,7 +4,7 @@ OBJ=obj
 BIN=bin
 
 all: 
-	$(MAKE) -C Maths/ 
+	$(MAKE) -C ../CMaths/ 
 	$(MAKE) -C Models/
 	$(CC) main.c -o $(BIN)/main $(OBJ)/*.o $(CFLAGS)
 

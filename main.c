@@ -3,7 +3,7 @@
 
 #include "Models/Regression.h"
 #include "../CMaths/MLMaths.h"
-
+#include "../CGraph/Graph.h"
 
 int main(int argc, char const *argv[])
 {
