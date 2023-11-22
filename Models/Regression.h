@@ -1,9 +1,5 @@
 # pragma once
 
-
-#ifndef REGRESSION_H
-#define REGRESSION_H
-
 #include "../../CMaths/Vec.h"
 
 typedef struct
@@ -76,5 +72,3 @@ float uniregression_predict(tUnivariateRegression* reg, float x);
  * @return float computed loss
  */
 float mean_sqrd_error_loss(tUnivariateRegression* reg);
-
-#endif
