@@ -33,8 +33,8 @@ void test_nn() {
 }
 
 void test_nn_visualiser() {
-    uint32_t layers_sizes[3] = { 4, 5, 8 };
-    tNeuralNetwork* nn = nn_create(3, layers_sizes);
+    uint32_t layers_sizes[4] = { 4, 5, 8, 2 };
+    tNeuralNetwork* nn = nn_create(4, layers_sizes);
     nn_print(nn);
 
     tApp* app = (tApp*)malloc(sizeof(tApp));
