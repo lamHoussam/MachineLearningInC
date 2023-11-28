@@ -1,7 +1,7 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -std=c99 -lm
 
+CFLAGS=-Wall `sdl2-config --cflags --libs` -lm -lSDL2_image -lSDL2_ttf
 # Directories
 SRC_DIR = .
 OBJ_DIR = ../obj

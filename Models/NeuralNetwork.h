@@ -28,13 +28,12 @@ typedef struct
 
 /**
  * ?Steps to make Neural Network: 
- * TODO 1: Initialize weights and biases
+ * 1: Initialize weights and biases
  * TODO 2: Forward Propagation
  * TODO 3: Compute the loss
  * TODO 4: Back propagation
  * TODO 5: Update weights and biases
 */
-
 
 tPerceptron* perceptron_create(uint32_t weights_count);
 void perceptron_print(tPerceptron* perc);
@@ -47,4 +46,5 @@ void layer_destroy(tNNLayer* layer);
 
 tNeuralNetwork* nn_create(uint32_t num_layers, uint32_t layer_sizes[]);
 void nn_print(tNeuralNetwork* nn);
+void nn_forward_propagation(tNeuralNetwork* nn, float (*loos_fn)(float, float));
 void nn_destroy(tNeuralNetwork* nn);

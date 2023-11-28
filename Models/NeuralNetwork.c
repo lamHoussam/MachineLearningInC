@@ -139,6 +139,10 @@ void nn_print(tNeuralNetwork* nn) {
     fprintf(stdout, "]\n");
 }
 
+void nn_forward_propagation(tNeuralNetwork* nn, float (*loos_fn)(float, float)) {
+    
+}
+
 void nn_destroy(tNeuralNetwork* nn) {
     if (nn) {
         if (nn->layers) {
