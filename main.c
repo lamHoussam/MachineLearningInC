@@ -33,8 +33,8 @@ void test_nn() {
 }
 
 void test_nn_visualiser() {
-    uint32_t layers_sizes[4] = { 4, 5, 8, 2 };
-    tNeuralNetwork* nn = nn_create(4, layers_sizes);
+    uint32_t layers_sizes[5] = { 3, 4, 4, 2, 1 };
+    tNeuralNetwork* nn = nn_create(5, layers_sizes);
     nn_print(nn);
 
     tApp* app = (tApp*)malloc(sizeof(tApp));
@@ -42,12 +42,17 @@ void test_nn_visualiser() {
 
     time_reset(&app->time);
 
+    float input_x[3] = { 2, 5, 8 };
+
     while (app->is_running)
     {
         time_compute(&app->time);
         input_check_events(&app->input);
         if (input_getkeydown(&app->input, SDL_SCANCODE_A) || app->input.quit)
             app_quit(app);
+
+        if (input_getkeydown(&app->input, SDL_SCANCODE_SPACE)) 
+            nn_single_forward_propagation(nn, input_x, 3, NULL);
 
         render_init_frame(app->renderer);
         nn_draw(nn, app->renderer, 100, 100, 20);
