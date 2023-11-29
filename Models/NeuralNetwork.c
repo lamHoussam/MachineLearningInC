@@ -18,7 +18,7 @@ tPerceptron* perceptron_create(uint32_t weights_count) {
         return NULL;
     }
 
-    for (size_t i = 0; i < (size_t)perc->weights_count; i++)
+    for (int i = 0; i < (int)perc->weights_count; i++)
         perc->weights[i] = 1.0f;
     
     return perc; 
@@ -29,7 +29,7 @@ void perceptron_print(tPerceptron* perc) {
         return;
 
     fprintf(stdout, "perc<%u>(", perc->weights_count);
-    for (size_t i = 0; i < (size_t)perc->weights_count; i++)
+    for (int i = 0; i < (int)perc->weights_count; i++)
         fprintf(stdout, "%f, ", perc->weights[i]);
     
     fprintf(stdout, ")\n");
@@ -64,7 +64,7 @@ tNNLayer* layer_create(uint32_t size, uint32_t prev_layer_size) {
         return NULL;
     }
 
-    for (size_t i = 0; i < (size_t)layer->perceptrons_count; i++)
+    for (int i = 0; i < (int)layer->perceptrons_count; i++)
         layer->perceptrons[i] = perceptron_create(prev_layer_size);
 
 
@@ -77,7 +77,7 @@ void layer_print(tNNLayer* layer) {
         return;
     
     fprintf(stdout, "Layer<%u>{\n", layer->perceptrons_count);
-    for (size_t i = 0; i < (size_t)layer->perceptrons_count; i++)
+    for (int i = 0; i < (int)layer->perceptrons_count; i++)
         perceptron_print(layer->perceptrons[i]);
     
     fprintf(stdout, "bias: %f\n}\n", layer->bias);
@@ -86,7 +86,7 @@ void layer_print(tNNLayer* layer) {
 void layer_destroy(tNNLayer* layer) {
     if (layer) {
         if (layer->perceptrons) {
-            for (size_t i = 0; i < (size_t)layer->perceptrons_count; i++)
+            for (int i = 0; i < (int)layer->perceptrons_count; i++)
                 perceptron_destroy(layer->perceptrons[i]);
 
             free(layer->perceptrons);
@@ -115,7 +115,7 @@ tNeuralNetwork* nn_create(uint32_t num_layers, uint32_t layer_sizes[]) {
         return NULL;
     }
 
-    for (size_t i = 1; i < (size_t)nn->layers_count; i++) {
+    for (int i = 1; i < (int)nn->layers_count; i++) {
         nn->layers[i] = layer_create(layer_sizes[i], layer_sizes[i - 1]);
         if (!nn->layers[i]) {
             free(nn);
@@ -133,7 +133,7 @@ void nn_print(tNeuralNetwork* nn) {
         return;
     
     fprintf(stdout, "NN<%u>[\n", nn->layers_count);
-    for (size_t i = 0; i < (size_t)nn->layers_count; i++)
+    for (int i = 0; i < (int)nn->layers_count; i++)
         layer_print(nn->layers[i]);
     
     fprintf(stdout, "]\n");
@@ -142,14 +142,14 @@ void nn_print(tNeuralNetwork* nn) {
 void nn_single_forward_propagation(tNeuralNetwork* nn, float input_x[], uint32_t size, float (*loos_fn)(float, float)) {
     float prev_layer_values[32];
     // memcpy(prev_layer_values, input_x, size); 
-    for (size_t i = 0; i < (size_t)size; i++)
+    for (int i = 0; i < (int)size; i++)
         prev_layer_values[i] = input_x[i];
 
     for (int layer_indx = 1; layer_indx < nn->layers_count; layer_indx++)
     {
         float next_layer_values[32];
         uint32_t perc_count = nn->layers[layer_indx]->perceptrons_count;
-        for (size_t j = 0; j < (size_t)perc_count; j++)
+        for (int j = 0; j < (int)perc_count; j++)
         {
             tPerceptron* p = nn->layers[layer_indx]->perceptrons[j];
             float val = 0;
@@ -163,7 +163,7 @@ void nn_single_forward_propagation(tNeuralNetwork* nn, float input_x[], uint32_t
             printf("Layer: %d [%d --> %f, %f]\n", layer_indx, p->weights_count, next_layer_values[j], prev_layer_values[j]);
         }
 
-        for (size_t j = 0; j < (size_t)perc_count; j++)
+        for (int j = 0; j < (int)perc_count; j++)
             prev_layer_values[j] = next_layer_values[j];       
     }
 }
@@ -171,7 +171,7 @@ void nn_single_forward_propagation(tNeuralNetwork* nn, float input_x[], uint32_t
 void nn_destroy(tNeuralNetwork* nn) {
     if (nn) {
         if (nn->layers) {
-            for (size_t i = 0; i < (size_t)nn->layers_count; i++)
+            for (int i = 0; i < (int)nn->layers_count; i++)
                 layer_destroy(nn->layers[i]);
 
             nn->layers_count = 0;

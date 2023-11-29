@@ -59,7 +59,7 @@ int uniregression_load_data_from_file(
 int uniregression_load_data_from_array(
     float values_x[],
     float values_y[],
-    size_t size,
+    unsigned int size,
     tUnivariateRegression* res
 ) {
     if (!values_x || !values_y || size == 0) {
@@ -80,7 +80,7 @@ int uniregression_load_data_from_array(
 
 void uniregression_print_train_data(tUnivariateRegression reg) {
     printf("Univariate Regression Training Data of size %u: \n{\n", reg.m_data_size);
-    for (size_t i = 0; i < (size_t)reg.m_data_size; i++)
+    for (int i = 0; i < (int)reg.m_data_size; i++)
         printf("\t%f: %f\n", reg.m_input_data_x.m_vec[i], reg.m_input_data_y.m_vec[i]);
 
     printf("}\n");
@@ -101,7 +101,7 @@ int uniregression_train_on_loaded_data(tUnivariateRegression* reg) {
     uint8_t size = reg->m_input_data_x.m_dimension;
 
     float xy = 0, ys = 0, xx = 0, xs = 0;
-    for (size_t i = 0; i < (size_t)size; i++)
+    for (int i = 0; i < (int)size; i++)
     {
         float x = reg->m_input_data_x.m_vec[i];
         float y = reg->m_input_data_y.m_vec[i];
@@ -140,7 +140,7 @@ float mean_sqrd_error_loss(tUnivariateRegression* reg) {
 
     float res = 0;
     uint8_t size = reg->m_input_data_x.m_dimension;
-    for (size_t i = 0; i < (size_t)size; i++)
+    for (int i = 0; i < (int)size; i++)
     {
         float x = reg->m_input_data_x.m_vec[i];
         float pred_y = uniregression_predict(reg, x);

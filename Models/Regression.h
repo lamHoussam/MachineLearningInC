@@ -37,7 +37,7 @@ int uniregression_load_data_from_file(
 int uniregression_load_data_from_array(
     float values_x[],
     float values_y[],
-    size_t size,
+    unsigned int size,
     tUnivariateRegression* res    
 );
 

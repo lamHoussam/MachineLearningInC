@@ -5,7 +5,7 @@ void perceptron_draw(tRenderer* renderer, int pos_x, int pos_y, int radius) {
 }
 
 void layer_draw(tNNLayer* layer, tRenderer* renderer, int pos_x, int pos_y, int node_size) {
-    for (size_t i = 0; i < layer->perceptrons_count; i++)
+    for (int i = 0; i < layer->perceptrons_count; i++)
         perceptron_draw(renderer, pos_x, pos_y + (node_size * 2 + 10) * i, node_size);    
 }
 
