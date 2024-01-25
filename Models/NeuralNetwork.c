@@ -19,7 +19,7 @@ tPerceptron* perceptron_create(uint32_t weights_count) {
     }
 
     for (int i = 0; i < (int)perc->weights_count; i++)
-        perc->weights[i] = 1.0f;
+        perc->weights[i] = random_float_01();
     
     return perc; 
 }
@@ -101,6 +101,7 @@ void layer_destroy(tNNLayer* layer) {
 }
 
 tNeuralNetwork* nn_create(uint32_t num_layers, uint32_t layer_sizes[]) {
+    random_init();
     tNeuralNetwork* nn = (tNeuralNetwork*)malloc(sizeof(tNeuralNetwork));
     if (!nn) {
         fprintf(stderr, "Couldnt create NN\n");
@@ -139,9 +140,10 @@ void nn_print(tNeuralNetwork* nn) {
     fprintf(stdout, "]\n");
 }
 
-void nn_single_forward_propagation(tNeuralNetwork* nn, float input_x[], uint32_t size, float (*loos_fn)(float, float)) {
+float nn_single_forward_propagation(tNeuralNetwork* nn, float *input_x, uint32_t size) {
+    // TODO: Alloc to heap later
+    // TODO: Apply activation function
     float prev_layer_values[32];
-    // memcpy(prev_layer_values, input_x, size); 
     for (int i = 0; i < (int)size; i++)
         prev_layer_values[i] = input_x[i];
 
@@ -166,6 +168,25 @@ void nn_single_forward_propagation(tNeuralNetwork* nn, float input_x[], uint32_t
         for (int j = 0; j < (int)perc_count; j++)
             prev_layer_values[j] = next_layer_values[j];       
     }
+
+    return prev_layer_values[0];
+}
+
+
+void nn_forward_propagation(tNeuralNetwork* nn, float **input_x, float *input_y, uint32_t input_size, uint32_t single_input_size, float (*loss_fun)(float, float)) {
+    if (!loss_fun) {
+        fprintf(stderr, "No loss function provided\n");
+        return;
+    }
+
+    float loss = 0, pred_y = 0;
+
+    for (uint32_t i = 0; i < input_size; i++)
+    {
+        pred_y = nn_single_forward_propagation(nn, input_x[i], single_input_size);
+        loss = loss_fun(input_y[i], pred_y);
+        printf("Loss %d : %f\n", i, loss);
+    }
 }
 
 void nn_destroy(tNeuralNetwork* nn) {
@@ -180,3 +201,4 @@ void nn_destroy(tNeuralNetwork* nn) {
         }
     }
 }
+

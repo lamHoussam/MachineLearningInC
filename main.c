@@ -21,8 +21,6 @@ void test_regression(const char *filename) {
 
     float y = uniregression_predict(&reg, 12);
     printf("Predicted for %d: %f\n", 12, y);
-
-   
 }
 
 void test_nn() {
@@ -30,6 +28,17 @@ void test_nn() {
     tNeuralNetwork* nn = nn_create(3, layers_sizes);
     nn_print(nn);
     nn_destroy(nn);
+}
+
+void test_xor_nn() {
+    uint32_t layer_sizes[3] = { 2, 4, 2 };
+    tNeuralNetwork* nn = nn_create(3, layer_sizes);
+
+    nn_print(nn);
+    tApp* app = (tApp*)malloc(sizeof(tApp));
+    app_create(app);
+    time_reset(&app->time);
+
 }
 
 void test_nn_visualiser() {
@@ -51,8 +60,10 @@ void test_nn_visualiser() {
         if (input_getkeydown(&app->input, SDL_SCANCODE_A) || app->input.quit)
             app_quit(app);
 
-        if (input_getkeydown(&app->input, SDL_SCANCODE_SPACE)) 
-            nn_single_forward_propagation(nn, input_x, 3, NULL);
+        if (input_getkeydown(&app->input, SDL_SCANCODE_SPACE)) {
+            float val = nn_single_forward_propagation(nn, input_x, 3);
+            printf("Final Value: %f\n", val);
+        }
 
         render_init_frame(app->renderer);
         nn_draw(nn, app->renderer, 100, 100, 20);

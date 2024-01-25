@@ -9,7 +9,6 @@ void layer_draw(tNNLayer* layer, tRenderer* renderer, int pos_x, int pos_y, int 
         perceptron_draw(renderer, pos_x, pos_y + (node_size * 2 + 10) * i, node_size);    
 }
 
-
 void nn_draw(tNeuralNetwork* nn, tRenderer* renderer, int pos_x, int pos_y, int node_size) {
 
     tColor zero_col= color_create(255, 0, 0, 255);

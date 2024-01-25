@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "../../CMaths/Random.h"
+
 #define MAX_NUM_LAYERS 8
 
 typedef struct
@@ -31,7 +33,7 @@ typedef struct
  * ?Steps to make Neural Network: 
  * 1: Initialize weights and biases
  * 2: Forward Propagation
- * TODO 3: Compute the loss
+ * 3: Compute the loss
  * TODO 4: Back propagation
  * TODO 5: Update weights and biases
 */
@@ -47,5 +49,6 @@ void layer_destroy(tNNLayer* layer);
 
 tNeuralNetwork* nn_create(uint32_t num_layers, uint32_t layer_sizes[]);
 void nn_print(tNeuralNetwork* nn);
-void nn_single_forward_propagation(tNeuralNetwork* nn, float input_x[], uint32_t size, float (*loos_fn)(float, float));
+float nn_single_forward_propagation(tNeuralNetwork* nn, float *input_x, uint32_t size);
+void nn_forward_propagation(tNeuralNetwork* nn, float **input_x, float *input_y, uint32_t input_size, uint32_t single_input_size, float (*loss_fun)(float, float));
 void nn_destroy(tNeuralNetwork* nn);
